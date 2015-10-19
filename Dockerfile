@@ -139,13 +139,11 @@ RUN curl -sf -o freepbx-$FREEPBXVER.tgz -L http://mirror.freepbx.org/freepbx-$FR
     && /usr/sbin/asterisk \
     && ./install_amp --installdb --username=$ASTERISKUSER --password=$ASTERISK_DB_PW \
     && amportal chown \
-    #&& amportal a ma installall \
-    #&& amportal chown \
-    && amportal a reload \
-    && amportal a ma refreshsignatures \
-    && amportal chown \
     && amportal a ma upgrade framework \
     && amportal a ma upgradeall \
+    && amportal chown \
+    && amportal a reload \
+    && amportal a ma refreshsignatures \
     && amportal chown \
     && ln -s /var/lib/asterisk/moh /var/lib/asterisk/mohmp3 \
     && rm -r /usr/src/freepbx
