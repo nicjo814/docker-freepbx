@@ -1,5 +1,4 @@
 FROM phusion/baseimage
-MAINTAINER Jason Martin <jason@greenpx.co.uk>
 
 # Set environment variables
 ENV DEBIAN_FRONTEND noninteractive
@@ -7,6 +6,10 @@ ENV ASTERISKUSER asterisk
 ENV ASTERISK_DB_PW Password
 ENV ASTERISKVER 13.1
 ENV FREEPBXVER 12.0.43
+
+EXPOSE 80
+EXPOSE 5060
+EXPOSE 10000-20000
 
 CMD ["/sbin/my_init"]
 
