@@ -39,7 +39,13 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.digitalocean.com/' /etc/apt/sources.lis
         libasound2-dev libogg-dev libvorbis-dev libcurl4-openssl-dev libical-dev libneon27-dev libsrtp0-dev\
         libspandsp-dev libmyodbc sox fail2ban \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && mv /etc/fail2ban/filter.d/asterisk.conf /etc/fail2ban/filter.d/asterisk.conf.org \
+    && mv /etc/fail2ban/jail.conf /etc/fail2ban/jail.conf.org
+
+# Copy new fail2ban config for asterisk 13
+COPY conf/fail2ban/asterisk.conf /etc/fail2ban/filter.d/asterisk.conf
+COPY conf/fail2ban/jail.conf /etc/fail2ban/jail.conf
 
 # Replace default conf files to reduce memory usage
 COPY conf/my-small.cnf /etc/mysql/my.cnf
@@ -145,8 +151,12 @@ RUN curl -sf -o freepbx-$FREEPBXVER.tgz -L http://mirror.freepbx.org/freepbx-$FR
     && amportal a reload \
     && amportal a ma refreshsignatures \
     && amportal chown \
+    && mysql -u$ASTERISKUSER -p$ASTERISK_DB_PW asterisk -e "INSERT into logfile_logfiles (name, debug, dtmf, error, fax, notice, verbose, warning, security) \
+    VALUES ('fail2ban', 'off', 'off', 'on', 'off', 'on', 'off', 'on', 'on');" \
+    && amportal a r \
     && ln -s /var/lib/asterisk/moh /var/lib/asterisk/mohmp3 \
-    && rm -r /usr/src/freepbx
+    && rm -r /usr/src/freepbx \
+    && service fail2ban restart
 
 #Make CDRs work
 COPY conf/cdr/odbc.ini /etc/odbc.ini
