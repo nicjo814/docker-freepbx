@@ -9,7 +9,7 @@ ENV FREEPBXVER 12.0.43
 
 EXPOSE 80
 EXPOSE 5060
-EXPOSE 10000-20000
+EXPOSE 10000-10020
 
 CMD ["/sbin/my_init"]
 
@@ -145,6 +145,8 @@ RUN curl -sf -o freepbx-$FREEPBXVER.tgz -L http://mirror.freepbx.org/freepbx-$FR
     #&& amportal chown \
     && amportal a reload \
     && amportal a ma refreshsignatures \
+    && amportal chown \
+    && amportal a ma upgradeall \
     && amportal chown \
     && ln -s /var/lib/asterisk/moh /var/lib/asterisk/mohmp3 \
     && rm -r /usr/src/freepbx
