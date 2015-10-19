@@ -37,9 +37,7 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.digitalocean.com/' /etc/apt/sources.lis
         libncurses5-dev libssl-dev libmysqlclient-dev mpg123 libxml2-dev libnewt-dev sqlite3\
         libsqlite3-dev pkg-config automake libtool autoconf subversion unixodbc-dev uuid uuid-dev\
         libasound2-dev libogg-dev libvorbis-dev libcurl4-openssl-dev libical-dev libneon27-dev libsrtp0-dev\
-        libspandsp-dev \
-        libmyodbc \
-        sox \
+        libspandsp-dev libmyodbc sox fail2ban \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -146,6 +144,7 @@ RUN curl -sf -o freepbx-$FREEPBXVER.tgz -L http://mirror.freepbx.org/freepbx-$FR
     && amportal a reload \
     && amportal a ma refreshsignatures \
     && amportal chown \
+    && amportal a ma upgrade framework \
     && amportal a ma upgradeall \
     && amportal chown \
     && ln -s /var/lib/asterisk/moh /var/lib/asterisk/mohmp3 \
