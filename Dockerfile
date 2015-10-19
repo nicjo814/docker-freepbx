@@ -40,11 +40,11 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.digitalocean.com/' /etc/apt/sources.lis
         libspandsp-dev libmyodbc sox fail2ban \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    #&& mv /etc/fail2ban/filter.d/asterisk.conf /etc/fail2ban/filter.d/asterisk.conf.org \
+    && mv /etc/fail2ban/filter.d/asterisk.conf /etc/fail2ban/filter.d/asterisk.conf.org \
     && mv /etc/fail2ban/jail.conf /etc/fail2ban/jail.conf.org
 
 # Copy new fail2ban config for asterisk 13
-#COPY conf/fail2ban/asterisk.conf /etc/fail2ban/filter.d/asterisk.conf
+COPY conf/fail2ban/asterisk.conf /etc/fail2ban/filter.d/asterisk.conf
 COPY conf/fail2ban/jail.conf /etc/fail2ban/jail.conf
 
 # Replace default conf files to reduce memory usage
