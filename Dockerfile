@@ -17,11 +17,13 @@ CMD ["/sbin/my_init"]
 COPY start-apache2.sh /etc/service/apache2/run
 COPY start-mysqld.sh /etc/service/mysqld/run
 COPY start-asterisk.sh /etc/service/asterisk/run
+COPY start-fail2ban.sh /etc/service/fail2ban/run
 COPY start-amportal.sh /etc/my_init.d/start-amportal.sh
 
 RUN chmod +x /etc/service/apache2/run \
     && chmod +x /etc/service/mysqld/run \
-    && chmod +x /etc/service/asterisk/run
+    && chmod +x /etc/service/asterisk/run \
+    && chmod +x /etc/service/fail2ban/run
 
 # Following steps on FreePBX wiki
 # http://wiki.freepbx.org/display/HTGS/Installing+FreePBX+12+on+Ubuntu+Server+14.04+LTS
@@ -162,8 +164,5 @@ COPY conf/cdr/cdr_adaptive_odbc.conf /etc/asterisk/cdr_adaptive_odbc.conf
 RUN chown asterisk:asterisk /etc/asterisk/cdr_adaptive_odbc.conf \
     && chmod 775 /etc/asterisk/cdr_adaptive_odbc.conf
 
-# Start Fail2ban
-COPY start-fail2ban.sh /etc/service/fail2ban/run
-RUN chmod +x /etc/service/fail2ban/run
 
 WORKDIR /
