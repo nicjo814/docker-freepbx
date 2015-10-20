@@ -17,13 +17,11 @@ CMD ["/sbin/my_init"]
 COPY start-apache2.sh /etc/service/apache2/run
 COPY start-mysqld.sh /etc/service/mysqld/run
 COPY start-asterisk.sh /etc/service/asterisk/run
-COPY start-fail2ban.sh /etc/service/fail2ban/run
 COPY start-amportal.sh /etc/my_init.d/start-amportal.sh
 
 RUN chmod +x /etc/service/apache2/run \
     && chmod +x /etc/service/mysqld/run \
-    && chmod +x /etc/service/asterisk/run \
-    && chmod +x /etc/service/fail2ban/run
+    && chmod +x /etc/service/asterisk/run
 
 # Following steps on FreePBX wiki
 # http://wiki.freepbx.org/display/HTGS/Installing+FreePBX+12+on+Ubuntu+Server+14.04+LTS
@@ -155,7 +153,8 @@ RUN curl -sf -o freepbx-$FREEPBXVER.tgz -L http://mirror.freepbx.org/freepbx-$FR
     VALUES ('fail2ban', 'off', 'off', 'on', 'off', 'on', 'off', 'on', 'on');" \
     && amportal a r \
     && ln -s /var/lib/asterisk/moh /var/lib/asterisk/mohmp3 \
-    && rm -r /usr/src/freepbx
+    && rm -r /usr/src/freepbx \
+    && /usr/bin/python /usr/bin/fail2ban-server -b -s /var/run/fail2ban/fail2ban.sock -p /var/run/fail2ban/fail2ban.pid
 
 #Make CDRs work
 COPY conf/cdr/odbc.ini /etc/odbc.ini
