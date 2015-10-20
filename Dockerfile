@@ -155,7 +155,7 @@ RUN curl -sf -o freepbx-$FREEPBXVER.tgz -L http://mirror.freepbx.org/freepbx-$FR
     VALUES ('fail2ban', 'off', 'off', 'on', 'off', 'on', 'off', 'on', 'on');" \
     && amportal a r \
     && ln -s /var/lib/asterisk/moh /var/lib/asterisk/mohmp3 \
-    && rm -r /usr/src/freepbx \
+    && rm -r /usr/src/freepbx
 
 #Make CDRs work
 COPY conf/cdr/odbc.ini /etc/odbc.ini
