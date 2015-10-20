@@ -154,7 +154,7 @@ RUN curl -sf -o freepbx-$FREEPBXVER.tgz -L http://mirror.freepbx.org/freepbx-$FR
     && amportal a r \
     && ln -s /var/lib/asterisk/moh /var/lib/asterisk/mohmp3 \
     && rm -r /usr/src/freepbx \
-    && /usr/bin/python /usr/bin/fail2ban-server -b -s /var/run/fail2ban/fail2ban.sock -p /var/run/fail2ban/fail2ban.pid
+    && /etc/init.d/fail2ban start
 
 #Make CDRs work
 COPY conf/cdr/odbc.ini /etc/odbc.ini
