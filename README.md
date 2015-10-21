@@ -1,4 +1,6 @@
 # docker-freepbx
 FreePBX Docker Image
-<p>Forked from the jmar71n/freepbx image
-<p>This is very much work in progress and probably not working...
+
+Forked from the jmar71n/freepbx image
+
+Changes compared to the original image is upgrade of freepbx modules to latest versions and addition of preconfigured fail2ban config setup for asterisk intrusion attempts.
