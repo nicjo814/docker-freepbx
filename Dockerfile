@@ -2,6 +2,11 @@ FROM phusion/baseimage
 
 # Set environment variables
 ENV DEBIAN_FRONTEND noninteractive
+ENV HOME="/root"
+ENV TERM=xterm
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 ENV ASTERISKUSER asterisk
 ENV ASTERISK_DB_PW Password
 ENV ASTERISKVER 13.1
