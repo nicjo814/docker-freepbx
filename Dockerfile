@@ -131,6 +131,7 @@ RUN curl -sf -o asterisk.tar.gz -L http://downloads.asterisk.org/pub/telephony/c
     ./configure && \
     contrib/scripts/get_mp3_source.sh && \
     make menuselect.makeopts && \
+    menuselect/menuselect --enable chan_sip menuselect.makeopts && \
     sed -i "s/BUILD_NATIVE//" menuselect.makeopts && \
     make && \
     make install && \
