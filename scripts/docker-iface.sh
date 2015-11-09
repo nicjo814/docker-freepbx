@@ -11,6 +11,10 @@ if [ "$#" -ne 6 ]; then
     echo "  br_name:    Name of the bridge adapter in the container (can be anything except h_br_name)"
     echo "  h_br_name:  Name of the bridge adapter in the host (can be anything except br_name)"
     echo "  h_ip:       IP to assign to the host in format 192.168.10.135/24"
+    echo ""
+    echo "Example usage:"
+    echo "docker-iface.sh ubuntu 192.168.109.22/24 eth0 ubuntu-br0 dockerhost-br0 192.168.109.23/24"
+    echo ""
     exit 1
 fi
 
